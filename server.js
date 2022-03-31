@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get('/api/:date', function (req, res) {
+app.get('/api/:date?', function (req, res) {
     if (!req.params.date) {
         var date = new Date();
     } else {
@@ -32,10 +32,7 @@ app.get('/api/:date', function (req, res) {
     }
     if (!date.getTime()) {
         res.send({error: "Invalid Date"})
-    } else res.send({
-        unix: date.getTime(),
-        utc: date.toUTCString()
-    })
+    } else {res.send({"unix": date.getTime(), "utc": date.toUTCString()})}
 })
 
 // listen for requests :)
