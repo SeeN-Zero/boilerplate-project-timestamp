@@ -31,8 +31,7 @@ app.get('/api/:date', function (req, res) {
     if (!date.getTime()) {
         res.send(JSON.stringify({error: "Invalid date given"}))
     } else res.send(JSON.stringify({
-        unix: date.getTime(),
-        natural: strftime('%B %d, %Y', date)
+        unix: date.getTime()
     }))
 })
 
