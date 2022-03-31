@@ -21,17 +21,20 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get('/api/:date', function (req, res) {
-    var date = new Date();
-    if (/^\d*$/.test(req.params.date)) {
-        date.setTime(req.params.date);
+    if (!req.params.date) {
+        var date = new Date();
     } else {
-        date = new Date(req.params.date);
+        if (!isNaN(req.params.date)) {
+            date = new Date(parseInt(req.params.date))
+        } else {
+            date = new Date(req.params.date)
+        }
     }
-    res.set({'Content-Type': 'application/json'})
     if (!date.getTime()) {
-        res.send(JSON.stringify({error: "Invalid date given"}))
+        res.send(JSON.stringify({error: "Invalid Date"}))
     } else res.send(JSON.stringify({
-        unix: date.getTime()
+        unix: date.getTime(),
+        utc: date.toUTCString()
     }))
 })
 
