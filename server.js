@@ -21,8 +21,9 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get('/api/:date?', function (req, res) {
+  let date;
     if (!req.params.date) {
-        var date = new Date();
+        date = new Date();
     } else {
         if (/^\d*$/.test(req.params.date)) {
           date.setTime(req.params.date)            
