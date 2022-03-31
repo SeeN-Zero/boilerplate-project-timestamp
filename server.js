@@ -20,20 +20,23 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get('/api/:date?', function (req, res) {
-  let date;
+app.get('/api/:date', function (req, res) {
+    var date
     if (!req.params.date) {
         date = new Date();
     } else {
-        if (/^\d*$/.test(req.params.date)) {
-          date.setTime(req.params.date)            
+        if (!isNaN(req.params.date)) {
+            date = new Date(parseInt(req.params.date))
         } else {
-          date = new Date(req.params.date)
+            date = new Date(req.params.date)
         }
     }
-    if (!date.getTime()) {
-        res.send({"error": "Invalid Date"})
-    } else {res.send({"unix": date.getTime(), "utc": date.toUTCString()})}
+    if(date.toString() == "Invalid Date"){
+        res.json({"error": date.toString()})
+    } else res.json({
+        "unix": date.getTime(),
+        "utc": date.toUTCString()
+    })
 })
 
 // listen for requests :)
