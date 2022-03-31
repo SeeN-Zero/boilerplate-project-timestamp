@@ -31,11 +31,11 @@ app.get('/api/:date', function (req, res) {
         }
     }
     if (!date.getTime()) {
-        res.send(JSON.stringify({error: "Invalid Date"}))
-    } else res.send(JSON.stringify({
+        res.send({error: "Invalid Date"})
+    } else res.send({
         unix: date.getTime(),
         utc: date.toUTCString()
-    }))
+    })
 })
 
 // listen for requests :)
