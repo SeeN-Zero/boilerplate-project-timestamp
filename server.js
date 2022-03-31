@@ -24,14 +24,14 @@ app.get('/api/:date?', function (req, res) {
     if (!req.params.date) {
         var date = new Date();
     } else {
-        if (!isNaN(req.params.date)) {
-            date = new Date(parseInt(req.params.date))
+        if (/^\d*$/.test(req.params.date)) {
+          date.setTime(req.params.date)            
         } else {
-            date = new Date(req.params.date)
+          date = new Date(req.params.date)
         }
     }
     if (!date.getTime()) {
-        res.send({error: "Invalid Date"})
+        res.send({"error": "Invalid Date"})
     } else {res.send({"unix": date.getTime(), "utc": date.toUTCString()})}
 })
 
